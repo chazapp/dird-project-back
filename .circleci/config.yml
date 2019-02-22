@@ -1,0 +1,34 @@
+version: 2
+
+jobs:
+  lint:
+    docker:
+    - image: node:latest
+    steps:
+    - checkout
+    - run: npm install -g eslint
+    - run:
+        name: Install Dependencies
+        command: yarn install
+    - run:
+        name: Run Lint
+        command: npm run lint
+
+  test:
+    docker:
+      - image: node:latest
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - run:
+          name: Run tests
+          command: npm test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+    - lint
+    - test
