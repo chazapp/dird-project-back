@@ -27,9 +27,26 @@ jobs:
           name: Run tests
           command: npm test
 
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy to dirdapi.chaz.pro
+          command: |
+            ssh $SSH_USER@$SSH_HOST "~/deploy/dirdapi.sh"
+
+
 workflows:
   version: 2
   build_and_test:
     jobs:
     - lint
     - test
+    - deploy:
+        requires:
+          - build
+        filters:
+          branches:
+            only: master
+
