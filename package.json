@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/app.js",
     "test": "jest",
-    "lint": "eslint **/*.js"
+    "lint": "eslint **/*.js",
+    "prod": "pm2-runtime start src/app.js"
   },
   "repository": {
     "type": "git",
