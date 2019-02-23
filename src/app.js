@@ -8,7 +8,10 @@ const { ui } = require('swagger2-koa');
 const app = new Koa();
 const router = new Router();
 
-const swaggerDoc = swagger.loadDocumentSync('./swagger.yaml');
+if (process.env.NODE_ENV !== 'test') {
+  const document = swagger.loadDocumentSync('./swagger.yaml');
+  app.use(ui(document, '/swagger'));
+}
 
 router.get('/', (ctx) => {
   ctx.body = 'Hello World!';
@@ -17,7 +20,6 @@ router.get('/', (ctx) => {
 app.use(router.routes());
 app.use(logger());
 app.use(router.allowedMethods());
-app.use(ui(swaggerDoc, '/swagger'));
 
 const server = app.listen(3000);
 
