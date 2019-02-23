@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "koa": "registry:npm/koa#2.0.0+20161018080506"
+  }
+}
