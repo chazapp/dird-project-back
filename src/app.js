@@ -1,26 +1,24 @@
-require('dotenv').config();
 const Koa = require('koa');
 const Router = require('koa-router');
-const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
-const db = require('./models');
+const swagger = require('swagger2');
+const { ui } = require('swagger2-koa');
+
 
 const app = new Koa();
 const router = new Router();
+
+if (process.env.NODE_ENV !== 'test') {
+  const document = swagger.loadDocumentSync('./swagger.yaml');
+  app.use(ui(document, '/swagger'));
+}
 
 router.get('/', (ctx) => {
   ctx.body = 'Hello World!';
 });
 
-router.post('/subscribe', (ctx) => {
-  const form = ctx.request.body;
-
-  console.log('ctx.request.body = ', form);
-});
-
 app.use(router.routes());
 app.use(logger());
-app.use(bodyParser());
 app.use(router.allowedMethods());
 
 const server = app.listen(3000);

@@ -1,0 +1,296 @@
+swagger: "2.0"
+info:
+  description: "Dird project. Not a simple Twitter clone."
+  version: "1.0.0"
+  title: "Swagger Dird"
+#  termsOfService: "http://dird.chaz.pro/terms/"
+#  contact:
+#    email: ""
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "dirdapi.chaz.pro"
+basePath: "/"
+tags:
+- name: "auth"
+  description: "Operations about authentication"
+  externalDocs:
+    description: "Authenticate and start woofing on"
+    url: "http://dird.chaz.pro"
+- name: "user"
+  description: "Operations about user"
+  externalDocs:
+    description: "See who's already woofin' on"
+    url: "http://dird.chaz.pro"
+- name: "woof"
+  description: "Operations about woofs"
+  externalDocs:
+    description: "Check the most recents woofs on"
+    url: "http://dird.chaz.pro"
+schemes:
+- "https"
+paths:
+  /auth:
+    post:
+      tags:
+      - "auth"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The user name for login"
+        required: true
+        schema: 
+          $ref: "#/definitions/Auth"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        400:
+          description: "Invalid username/password supplied"
+
+  /subscribe:
+    post:
+      tags:
+      - "auth"
+      summary: "Create user"
+      description: "Create a new user."
+      operationId: "createUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object to create"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "successful operation"
+        400:
+          description: "Invalid username/password"
+        409:
+          description: "Username already exists"
+
+  /user/{username}:
+    get:
+      tags:
+      - "user"
+      summary: "Get user by user name"
+      description: ""
+      operationId: "getUserByName"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+    put:
+      tags:
+      - "user"
+      summary: "Updated user"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "name that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      security:
+        - Bearer: []
+      responses:
+        400:
+          description: "Invalid user supplied"
+        404:
+          description: "User not found"
+    delete:
+      tags:
+      - "user"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be deleted"
+        required: true
+        type: "string"
+      security:
+        - Bearer: []
+      responses:
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+
+  /woof:
+    post:
+      tags:
+      - "woof"
+      summary: "Create woof"
+      description: "Create a new woof."
+      operationId: "createWoof"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Woof to create"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            content:
+              type: "string"
+              maxLength: 145
+      security:
+        - Bearer: []
+      responses:
+        default:
+          description: "successful operation"
+  /woof/list:
+    get:
+      tags:
+      - "woof"
+      summary: "Get array of woof"
+      description: "Get the list of published woofs from the given username."
+      operationId: "listWoof"
+      parameters:
+      - in: "query"
+        name: "page"
+        description: "Page to retrieve. Higher means newer. if not provided, consider page is latest."
+        required: false
+        type: "integer"
+        format: "int64"
+      - in: "query"
+        name: "username"
+        description: "Username from which to retrieve woofs"
+        required: false
+        type: "string"
+      - in: "query"
+        name: "userId"
+        description: "User id from which to retrieve woofs"
+        required: false
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Woof"
+        400:
+          description: "Invalid username, userId or page"
+  /woof/{woofId}:
+    get:
+      tags:
+      - "woof"
+      summary: "Get woof by woof id"
+      description: ""
+      operationId: "getWoofById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "woofId"
+        in: "path"
+        description: "The woof that needs to be fetched."
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Woof"
+        400:
+          description: "Invalid woofId supplied"
+        404:
+          description: "Woof not found"
+
+securityDefinitions:
+  Bearer:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+#  dird_auth:
+#    type: "oauth2"
+#    authorizationUrl: "http://dirdapi.chaz.pro/oauth/dialog"
+#    flow: "implicit"
+#    scopes:
+#      write:user: "modify info in your account"
+#      write:woof: "write woofs from your account"
+#      read:woof: "read your woofs"
+definitions:
+  Auth:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      password:
+        type: "string"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      email:
+        type: "string"
+      pictureUrl:
+        type: "string"
+      username:
+        type: "string"
+  Woof:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      content:
+        type: "string"
+      created:
+        type: "string"
+        format: "date-time"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

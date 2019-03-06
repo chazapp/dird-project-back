@@ -23,16 +23,15 @@
   },
   "homepage": "https://github.com/shadonovitch/dird-project-back#readme",
   "dependencies": {
-    "dotenv": "^6.2.0",
     "koa": "^2.7.0",
-    "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
-    "mongoose": "latest",
-    "supertest": "^3.4.2"
+    "supertest": "^3.4.2",
+    "swagger2": "^1.0.4",
+    "swagger2-koa": "^1.0.3"
   },
   "devDependencies": {
-    "eslint": "^5.14.1",
+    "eslint": "5.3.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.1",
