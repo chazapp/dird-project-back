@@ -23,9 +23,15 @@
   },
   "homepage": "https://github.com/shadonovitch/dird-project-back#readme",
   "dependencies": {
+    "bcrypt": "^3.0.4",
+    "dotenv": "^6.2.0",
+    "jsonwebtoken": "^8.5.0",
     "koa": "^2.7.0",
+    "koa-bodyparser": "latest",
+    "koa-jwt": "^3.5.1",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
+    "mongoose": "^5.4.17",
     "supertest": "^3.4.2",
     "swagger2": "^1.0.4",
     "swagger2-koa": "^1.0.3"
