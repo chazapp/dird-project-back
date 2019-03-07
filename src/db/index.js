@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const userSchema = require('./users');
+const userSchema = require('./models/users');
 
 if (process.env.NODE_ENV !== 'test') {
   mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (error) => {
