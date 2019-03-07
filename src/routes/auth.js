@@ -7,10 +7,14 @@ const db = require('../db');
 
 const router = new Router();
 
+async function findUser(params) {
+  return db.User.find(params);
+}
+
 router.post('/register', async (ctx) => {
   const { handle, email, password } = ctx.request.body;
   // Verify handle, email not already exists :
-  const alreadyExistingUser = await app.findUser({ email, handle });
+  const alreadyExistingUser = await findUser({ email, handle });
   if (alreadyExistingUser.length > 0) {
     ctx.response.status = 409;
     ctx.response.body = {

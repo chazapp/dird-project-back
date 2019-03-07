@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
   accessTokens: [{
     type: String,
   }],
+  picture: { data: Buffer, contentType: String },
 });
 
 module.exports = userSchema;
