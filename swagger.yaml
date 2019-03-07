@@ -44,7 +44,7 @@ paths:
         name: "body"
         description: "The user name for login"
         required: true
-        schema: 
+        schema:
           $ref: "#/definitions/Auth"
       responses:
         200:
@@ -63,7 +63,7 @@ paths:
         400:
           description: "Invalid username/password supplied"
 
-  /subscribe:
+  /register:
     post:
       tags:
       - "auth"
@@ -82,8 +82,6 @@ paths:
       responses:
         200:
           description: "successful operation"
-        400:
-          description: "Invalid username/password"
         409:
           description: "Username already exists"
 
