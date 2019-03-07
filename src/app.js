@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(logger());
 }
 
-router.get('/', jwt, (ctx) => {
+router.get('/', (ctx) => {
   ctx.body = 'Hello World!';
 });
 
