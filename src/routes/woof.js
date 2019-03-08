@@ -1,15 +1,24 @@
 const Router = require('koa-router');
+const validate = require('koa-joi-validate');
+const joi = require('joi');
 
 const jwt = require('../jwt');
 const db = require('../db');
 
 const router = new Router();
 
+const woofValidator = validate({
+  body: {
+    text: joi.string().required(),
+  },
+});
+
 async function findUser(params) {
   return db.User.findOne(params);
 }
 
-router.post('/woof', jwt, async (ctx) => {
+
+router.post('/woof', woofValidator, jwt, async (ctx) => {
   const { text } = ctx.request.body;
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
   const currentUser = await findUser({ accessTokens: [accessToken] });
