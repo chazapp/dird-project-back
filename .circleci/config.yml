@@ -16,7 +16,7 @@ jobs:
 
   test:
     docker:
-      - image: node:latest
+      - image: node:10.6.0
     steps:
       - checkout
       - run: npm install -g jest
