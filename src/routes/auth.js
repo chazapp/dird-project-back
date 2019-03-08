@@ -47,6 +47,7 @@ router.post('/auth', async (ctx) => {
     const user = users[0];
     if (bcrypt.compareSync(password, user.hashedPassword)) {
       const token = tokenGen.sign({ role: 'user' }, process.env.JWT_SECRET);
+      user.accessTokens.push(token);
       ctx.response.status = 200;
       ctx.response.body = {
         status: 'success',
