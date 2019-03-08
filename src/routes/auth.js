@@ -1,17 +1,35 @@
 const Router = require('koa-router');
 const bcrypt = require('bcrypt');
 const tokenGen = require('jsonwebtoken');
+const validate = require('koa-joi-validate');
+const joi = require('joi');
 
 const app = require('../app');
 const db = require('../db');
 
 const router = new Router();
 
+const registerValidator = validate({
+  body: {
+    handle: joi.string().required(),
+    email: joi.string().required(),
+    password: joi.string().required(),
+  },
+});
+
+const authValidator = validate({
+  body: {
+    email: joi.string().required(),
+    password: joi.string().required(),
+  },
+});
+
+
 async function findUser(params) {
   return db.User.find(params);
 }
 
-router.post('/register', async (ctx) => {
+router.post('/register', registerValidator, async (ctx) => {
   const { handle, email, password } = ctx.request.body;
   // Verify handle, email not already exists :
   const alreadyExistingUser = await findUser({ email, handle });
@@ -40,7 +58,7 @@ router.post('/register', async (ctx) => {
   }
 });
 
-router.post('/auth', async (ctx) => {
+router.post('/auth', authValidator, async (ctx) => {
   const { email, password } = ctx.request.body;
   const users = await app.findUser({ email });
   if (users.length > 0) {
