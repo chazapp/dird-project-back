@@ -8,6 +8,9 @@ const userSchema = mongoose.Schema({
     type: String,
   }],
   picture: { data: Buffer, contentType: String },
+  woofs: [{
+    type: String,
+  }],
 });
 
 module.exports = userSchema;

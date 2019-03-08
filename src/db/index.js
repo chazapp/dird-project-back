@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const userSchema = require('./models/users');
+const woofSchema = require('./models/woof');
 
 if (process.env.NODE_ENV !== 'test') {
   mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (error) => {
@@ -12,5 +13,8 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 const User = mongoose.model('users', userSchema);
+const Woof = mongoose.model('woofs', woofSchema);
+
 module.exports = mongoose;
 module.exports.User = User;
+module.exports.Woof = Woof;

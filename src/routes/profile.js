@@ -7,7 +7,7 @@ const db = require('../db');
 const router = new Router();
 
 async function findUser(params) {
-  return db.User.findOne(params);
+    return db.User.findOne(params);
 }
 
 router.get('/users', async (ctx) => {
