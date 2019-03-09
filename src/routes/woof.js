@@ -72,4 +72,25 @@ router.get('/woof/:id', async (ctx) => {
   }
 });
 
+router.get('/:handle/woofs', async (ctx) => {
+  const { handle } = ctx.params;
+  const user = await db.User.findOne({ handle });
+  if (user != null) {
+    let i = 0;
+    const woofArray = [];
+    while (i < user.woofs.length) {
+      woofArray.push(db.Woof.findOne({ _id: user.woofs[i] }));
+      i += 1;
+    }
+    ctx.response.status = 200;
+    ctx.response.body = await Promise.all(woofArray);
+  } else {
+    ctx.response.status = 404;
+    ctx.response.body = {
+      status: 'failed',
+      message: 'Could not find user for given handle.',
+    };
+  }
+});
+
 module.exports = router;
