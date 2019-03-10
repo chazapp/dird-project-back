@@ -32,9 +32,12 @@
     "koa-formidable": "latest",
     "koa-jwt": "^3.5.1",
     "koa-logger": "^3.2.0",
+    "koa-multer": "^1.0.2",
     "koa-router": "^7.4.0",
     "koa2-formidable": "^1.0.2",
+    "mongo-mock": "^3.4.0",
     "mongoose": "^5.4.17",
+    "multer": "^1.4.1",
     "supertest": "^3.4.2",
     "swagger2": "^1.0.4",
     "swagger2-koa": "^1.0.3"
@@ -44,7 +47,8 @@
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.1",
-    "eslint-plugin-react": "7.11.0"
+    "eslint-plugin-react": "7.11.0",
+    "jest": "^24.3.1"
   },
   "jest": {
     "testEnvironment": "node"
