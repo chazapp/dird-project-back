@@ -4,7 +4,6 @@ const tokenGen = require('jsonwebtoken');
 const validate = require('koa-joi-validate');
 const joi = require('joi');
 
-const app = require('../app');
 const db = require('../db');
 
 const router = new Router();
@@ -60,12 +59,12 @@ router.post('/register', registerValidator, async (ctx) => {
 
 router.post('/auth', authValidator, async (ctx) => {
   const { email, password } = ctx.request.body;
-  const users = await app.findUser({ email });
-  if (users.length > 0) {
-    const user = users[0];
+  const user = await db.User.findOne({ email });
+  if (user) {
     if (bcrypt.compareSync(password, user.hashedPassword)) {
       const token = tokenGen.sign({ role: 'user' }, process.env.JWT_SECRET);
       user.accessTokens.push(token);
+      user.save();
       ctx.response.status = 200;
       ctx.response.body = {
         status: 'success',
