@@ -7,7 +7,7 @@ const db = require('../db');
 const router = new Router();
 
 async function findUser(params) {
-    return db.User.findOne(params);
+  return db.User.findOne(params);
 }
 
 router.get('/users', async (ctx) => {
@@ -27,7 +27,7 @@ router.post('/profile/picture', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
   const currentUser = await findUser({ accessTokens: [accessToken] });
   console.log('request files : ', ctx.request.files);
-  const pictureFile = ctx.request.files.picture
+  const pictureFile = ctx.request.files.picture;
   currentUser.picture.data = pictureFile.data;
   currentUser.save();
   ctx.response.status = 200;
