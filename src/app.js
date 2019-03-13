@@ -5,6 +5,7 @@ const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const swagger = require('swagger2');
 const { ui } = require('swagger2-koa');
+const cors = require('@koa/cors');
 
 const jwt = require('./jwt');
 const authRouter = require('./routes/auth');
@@ -16,6 +17,7 @@ const app = new Koa();
 const router = new Router();
 
 app.use(bodyParser());
+app.use(cors());
 
 if (process.env.NODE_ENV !== 'test') {
   const document = swagger.loadDocumentSync('./swagger.yaml');
