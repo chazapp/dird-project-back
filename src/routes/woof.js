@@ -17,7 +17,6 @@ async function findUser(params) {
   return db.User.findOne(params);
 }
 
-
 router.post('/woof', woofValidator, jwt, async (ctx) => {
   const { text } = ctx.request.body;
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
@@ -47,6 +46,7 @@ router.post('/woof', woofValidator, jwt, async (ctx) => {
 
 router.get('/woof/:id', async (ctx) => {
   const { id } = ctx.params;
+
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
     const woof = await db.Woof.findOne({ _id: id });
     if (woof != null) {
