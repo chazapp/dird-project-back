@@ -34,7 +34,7 @@ router.get('/profile', jwt, async (ctx) => {
 
 router.post('/profile/picture', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
-  const currentUser = await findUser({ accessTokens: [accessToken] });
+  const currentUser = await db.User.findOne({ accessTokens: accessToken });
   const pictureFile = ctx.request.files.picture;
   currentUser.picture.data = pictureFile.data;
   currentUser.save();
@@ -47,7 +47,7 @@ router.post('/profile/picture', jwt, async (ctx) => {
 
 router.get('/profile/picture', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
-  const currentUser = await findUser({ accessTokens: [accessToken] });
+  const currentUser = await db.User.findOne({ accessTokens: accessToken });
   ctx.response.status = 200;
   ctx.response.body = currentUser.picture;
 });
