@@ -16,12 +16,13 @@ router.get('/users', async (ctx) => {
 
 router.get('/profile', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
-  const currentUser = await findUser({ accessTokens: [accessToken] });
+  const currentUser = await db.User.findOne({ accessTokens: accessToken });
   if (currentUser) {
     ctx.response.status = 200;
     ctx.response.body = {
       status: 'success',
-      profile: currentUser,
+      email: currentUser.email,
+      handle: currentUser.handle,
     };
   } else {
     ctx.response.status = 404;
@@ -31,12 +32,9 @@ router.get('/profile', jwt, async (ctx) => {
   }
 });
 
-module.exports = router;
-
 router.post('/profile/picture', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
   const currentUser = await findUser({ accessTokens: [accessToken] });
-  console.log('request files : ', ctx.request.files);
   const pictureFile = ctx.request.files.picture;
   currentUser.picture.data = pictureFile.data;
   currentUser.save();
@@ -53,3 +51,5 @@ router.get('/profile/picture', jwt, async (ctx) => {
   ctx.response.status = 200;
   ctx.response.body = currentUser.picture;
 });
+
+module.exports = router;
