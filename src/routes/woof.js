@@ -20,7 +20,7 @@ async function findUser(params) {
 router.post('/woof', woofValidator, jwt, async (ctx) => {
   const { text } = ctx.request.body;
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
-  const currentUser = await findUser({ accessTokens: [accessToken] });
+  const currentUser = await findUser({ accessTokens: accessToken });
   if (currentUser != null) {
     const woof = new db.Woof({
       handle: currentUser.handle,
