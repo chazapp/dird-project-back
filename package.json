@@ -31,6 +31,7 @@
     "jsonwebtoken": "^8.5.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "latest",
+    "koa-busboy": "^1.2.0",
     "koa-formidable": "latest",
     "koa-joi-validate": "^0.5.1",
     "koa-jwt": "^3.5.1",
