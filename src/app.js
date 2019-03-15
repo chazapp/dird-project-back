@@ -16,7 +16,7 @@ const chatRouter = require('./routes/chat');
 const app = new Koa();
 const router = new Router();
 
-app.use(bodyParser());
+app.use(bodyParser({ multiPart: true }));
 app.use(cors());
 
 if (process.env.NODE_ENV !== 'test') {

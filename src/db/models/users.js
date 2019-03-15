@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
   accessTokens: [{
     type: String,
   }],
-  picture: { data: Buffer, contentType: String },
+  pictureB64: String,
   woofs: [{
     type: String,
   }],
