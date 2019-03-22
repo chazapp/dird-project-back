@@ -19,7 +19,7 @@ jobs:
       - image: node:10.6.0
     steps:
       - checkout
-      - run: npm install -g jest
+      - run: npm install -g mocha
       - run:
           name: Install Dependencies
           command: yarn install
