@@ -48,7 +48,7 @@ router.post('/register', registerValidator, async (ctx) => {
       accessTokens: [token],
     });
     user.save();
-    ctx.response.status = 200;
+    ctx.response.status = 201;
     ctx.response.body = {
       status: 'success',
       message: 'User successfully created.',

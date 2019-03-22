@@ -5,7 +5,7 @@
     "import/no-unresolved": "1"
   },
   "env": {
-    "jest": true
+    "mocha": true
   },
   "settings": {
     "import/resolver": {
