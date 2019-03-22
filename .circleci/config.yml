@@ -22,7 +22,7 @@ jobs:
       - run: npm install -g mocha
       - run:
           name: Install Dependencies
-          command: yarn install
+          command: npm install
       - run:
           name: Run tests
           command: npm test
