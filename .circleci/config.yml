@@ -16,7 +16,7 @@ jobs:
 
   test:
     docker:
-      - image: node:10.6.0
+      - image: spittet/node-mongodb
     steps:
       - checkout
       - run: npm install -g mocha
