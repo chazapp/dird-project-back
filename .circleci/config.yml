@@ -16,9 +16,10 @@ jobs:
 
   test:
     docker:
-      - image: node:latest
+      - image: debian:latest
     steps:
       - checkout
+      - run: apt-get install nodejs
       - run: npm install -g mocha
       - run:
           name: Install Dependencies
