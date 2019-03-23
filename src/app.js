@@ -37,6 +37,4 @@ app.use(chatRouter.routes());
 app.use(router.allowedMethods());
 app.use(jwt);
 
-const server = app.listen(3000);
-
-module.exports = server;
+module.exports = app;

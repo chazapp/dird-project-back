@@ -16,14 +16,14 @@ const conversationValidator = validate({
 
 router.get('/conversations', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
-  const currentUser = await db.User.findOne({ accessTokens: [accessToken] });
+  const currentUser = await db.User.findOne({ accessTokens: accessToken });
   if (currentUser != null) {
     const conversations = await db.Conversation.find({ handles: currentUser.handle });
+    ctx.response.status = 200;
     ctx.response.body = {
       status: 'success',
       conversations,
     };
-    ctx.response = 200;
   } else {
     ctx.response.status = 401;
     ctx.response.body = {
@@ -44,8 +44,7 @@ router.post('/conversation', jwt, conversationValidator, async (ctx) => {
     conversation.handles = [currentUser.handle, targetHandle];
     conversation.messages = [message];
     await conversation.save();
-    console.log(conversation);
-    ctx.response.status = 200;
+    ctx.response.status = 201;
     ctx.response.body = {
       status: 'success',
       conversation_id: conversation.id,

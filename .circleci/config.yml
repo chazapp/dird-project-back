@@ -16,13 +16,22 @@ jobs:
 
   test:
     docker:
-      - image: node:10.6.0
+      - image: debian:stable
     steps:
       - checkout
-      - run: npm install -g jest
+      - run: apt-get update
+      - run: apt-get install -y curl
+      - run: curl -sL https://deb.nodesource.com/setup_10.x | bash -
+      - run: apt-get install nodejs -y
+      - run: npm install -g mocha
       - run:
           name: Install Dependencies
-          command: yarn install
+          command: npm install
+      - run: curl https://www.mongodb.org/static/pgp/server-4.0.asc | apt-key add -
+      - run: echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main" >> /etc/apt/sources.list.d/mongodb-org-4.0.list
+      - run: apt-get update
+      - run: apt-get install -y mongodb
+      - run: service mongodb start
       - run:
           name: Run tests
           command: npm test
