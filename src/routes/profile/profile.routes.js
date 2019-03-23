@@ -72,5 +72,4 @@ router.get('/:handle/picture', async (ctx) => {
   }
 });
 
-
 module.exports = router;

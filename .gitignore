@@ -65,3 +65,8 @@ typings/
 
 # Environ
 .env
+.DS_Store
+database/
+src/.DS_Store
+src/routes/.DS_Store
+src/routes/chat/.DS_Store
