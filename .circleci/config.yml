@@ -23,11 +23,11 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
-      - run: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 \
-      - run: echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list \
-      - run: apt-get update \
-      - run: apt-get install -y mongodb-org --no-install-recommends \
-      - run: apt-get clean \
+      - run: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+      - run: echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+      - run: apt-get update
+      - run: apt-get install -y mongodb-org --no-install-recommends
+      - run: apt-get clean
       - run: rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
       - run:
           name: Run tests
