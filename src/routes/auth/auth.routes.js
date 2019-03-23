@@ -1,28 +1,11 @@
 const Router = require('koa-router');
 const bcrypt = require('bcrypt');
 const tokenGen = require('jsonwebtoken');
-const validate = require('koa-joi-validate');
-const joi = require('joi');
+const { registerValidator, authValidator } = require('./auth.validator');
 
-const db = require('../db');
+const db = require('../../db');
 
 const router = new Router();
-
-const registerValidator = validate({
-  body: {
-    handle: joi.string().required(),
-    email: joi.string().required(),
-    password: joi.string().required(),
-  },
-});
-
-const authValidator = validate({
-  body: {
-    email: joi.string().required(),
-    password: joi.string().required(),
-  },
-});
-
 
 async function findUser(params) {
   return db.User.find(params);

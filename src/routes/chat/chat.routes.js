@@ -1,18 +1,10 @@
 const Router = require('koa-router');
-const validate = require('koa-joi-validate');
-const joi = require('joi');
+const { conversationValidator } = require('./chat.validator');
 
-const jwt = require('../jwt');
-const db = require('../db');
+const jwt = require('../../jwt');
+const db = require('../../db');
 
 const router = new Router();
-
-const conversationValidator = validate({
-  body: {
-    targetHandle: joi.string().required(),
-    txt: joi.string().required(),
-  },
-});
 
 router.get('/conversations', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');

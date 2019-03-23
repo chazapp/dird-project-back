@@ -1,17 +1,10 @@
 const Router = require('koa-router');
-const validate = require('koa-joi-validate');
-const joi = require('joi');
+const { woofValidator } = require('./woof.validator');
 
-const jwt = require('../jwt');
-const db = require('../db');
+const jwt = require('../../jwt');
+const db = require('../../db');
 
 const router = new Router();
-
-const woofValidator = validate({
-  body: {
-    text: joi.string().required(),
-  },
-});
 
 async function findUser(params) {
   return db.User.findOne(params);

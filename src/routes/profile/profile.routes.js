@@ -2,9 +2,9 @@ const Router = require('koa-router');
 const busboy = require('koa-busboy');
 const fs = require('fs');
 
-const app = require('../app');
-const jwt = require('../jwt');
-const db = require('../db');
+const app = require('../../app');
+const jwt = require('../../jwt');
+const db = require('../../db');
 
 const router = new Router();
 

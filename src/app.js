@@ -8,10 +8,10 @@ const { ui } = require('swagger2-koa');
 const cors = require('@koa/cors');
 
 const jwt = require('./jwt');
-const authRouter = require('./routes/auth');
-const profileRouter = require('./routes/profile');
-const woofRouter = require('./routes/woof');
-const chatRouter = require('./routes/chat');
+const authRouter = require('./routes/auth/auth.routes');
+const profileRouter = require('./routes/profile/profile.routes');
+const woofRouter = require('./routes/woof/woof.routes');
+const chatRouter = require('./routes/chat/chat.routes');
 
 const app = new Koa();
 const router = new Router();
