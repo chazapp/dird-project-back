@@ -19,7 +19,6 @@ jobs:
       - image: node:latest
     steps:
       - checkout
-      - run: service mongod start
       - run: npm install -g mocha
       - run:
           name: Install Dependencies
