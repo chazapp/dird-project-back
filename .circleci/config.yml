@@ -30,8 +30,8 @@ jobs:
       - run: apt-get clean \
       - run: rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
       - run:
-        name: Run tests
-        command: npm test
+          name: Run tests
+          command: npm test
 
   deploy:
     machine:
