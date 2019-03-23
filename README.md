@@ -1,5 +1,5 @@
 # Dird Project Backend
-
+[![CircleCI](https://circleci.com/gh/shadonovitch/dird-project-back/tree/master.svg?style=svg)](https://circleci.com/gh/shadonovitch/dird-project-back/tree/master)  
 A NodeJS Backend for DirdProject
 
 # Installation
