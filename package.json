@@ -7,7 +7,7 @@
     "start": "nodemon src",
     "test": "mocha __tests__/routes.test.js -exit",
     "lint": "eslint **/*.js",
-    "prod": "pm2-runtime start src/app.js"
+    "prod": "pm2-runtime start src"
   },
   "repository": {
     "type": "git",
