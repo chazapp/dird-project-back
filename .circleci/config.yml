@@ -19,6 +19,7 @@ jobs:
       - image: debian:latest
     steps:
       - checkout
+      - run: apt-get update
       - run: apt-get install nodejs
       - run: npm install -g mocha
       - run:
