@@ -29,7 +29,7 @@ router.post('/woof', woofValidator, jwt, async (ctx) => {
     woof.save();
     currentUser.woofs.push(woof.id);
     currentUser.save();
-    ctx.response.status = 200;
+    ctx.response.status = 201;
     ctx.response.body = {
       status: 'success',
       message: 'Successfully posted Woof.',
