@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update
-      - run: apt-get install nodejs -y
+      - run: apt-get install nodejs npm -y
       - run: npm install -g mocha
       - run:
           name: Install Dependencies
