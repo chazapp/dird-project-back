@@ -31,7 +31,7 @@ jobs:
       - run: echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main" >> /etc/apt/sources.list.d/mongodb-org-4.0.list
       - run: apt-get update
       - run: apt-get install -y mongodb-org
-      - run: service mongod start
+      - run: service mongodb start
       - run:
           name: Run tests
           command: npm test
