@@ -6,8 +6,9 @@ const app = require('../src/app');
 chai.use(chaiHttp);
 const server = app.listen(3000);
 let currentToken = '';
+let currentConversationID = '';
 
-describe('basic route tests', () => {
+describe('dirdapi route tests', () => {
   before(async () => {
   });
 
@@ -92,11 +93,60 @@ describe('basic route tests', () => {
       .post('/conversation')
       .set('Authorization', `Bearer ${currentToken}`)
       .send({
-        targetHandle: 'Foo',
+        targetHandle: 'Noice',
         txt: 'Hello Foobar',
       })
       .end((err, response) => {
+        if (response.status === 409) {
+          done();
+        } else {
+          expect(response.status)
+            .toEqual(201);
+          const { conversationID } = response.body;
+          currentConversationID = conversationID;
+          done();
+        }
+      });
+  });
+
+  it('should send a message', (done) => {
+    if (currentConversationID === '') {
+      done();
+      return;
+    }
+    chai
+      .request(server)
+      .post(`/conversation/${currentConversationID}`)
+      .set('Authorization', `Bearer ${currentToken}`)
+      .send({
+        txt: 'Hello World',
+      })
+      .end((err, response) => {
         expect(response.status).toEqual(201);
+        done();
+      });
+  });
+
+  it('should post a woof', (done) => {
+    chai
+      .request(server)
+      .post('/woof')
+      .set('Authorization', `Bearer ${currentToken}`)
+      .send({
+        text: 'A test woof !',
+      })
+      .end((err, response) => {
+        expect(response.status).toEqual(201);
+        done();
+      });
+  });
+
+  it('should get a users woofs', (done) => {
+    chai
+      .request(server)
+      .get('/shad/woofs')
+      .end((err, response) => {
+        expect(response.status).toEqual(200);
         done();
       });
   });
