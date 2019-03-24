@@ -59,15 +59,16 @@ jobs:
 
       - store_test_results:
           path: reports
-          - store_artifacts:
-              path: ./reports/mocha/test-results.xml
 
-          - store_artifacts:
-              path: ./reports/eslint/eslint.xml
+      - store_artifacts:
+          path: ./reports/mocha/test-results.xml
 
-          - store_artifacts: # upload test coverage as artifact
-              path: ./coverage/lcov.info
-              prefix: tests
+      - store_artifacts:
+          path: ./reports/eslint/eslint.xml
+
+      - store_artifacts: # upload test coverage as artifact
+          path: ./coverage/lcov.info
+          prefix: tests
 
   deploy:
     machine:
