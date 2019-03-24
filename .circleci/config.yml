@@ -15,6 +15,7 @@ jobs:
         command: npm run lint
 
   test:
+    CC_TEST_REPORTER_ID: b5466f47672c9e586a21e3d2d67c102891f2e2ab30941ab511f80157e4d56569
     docker:
       - image: debian:stable
     steps:
