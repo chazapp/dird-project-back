@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src",
-    "test": "mocha __tests__/routes.test.js -exit",
+    "test": "nyc mocha __tests__/routes.test.js -exit",
     "lint": "eslint **/*.js",
     "prod": "pm2-runtime start src"
   },

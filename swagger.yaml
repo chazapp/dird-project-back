@@ -16,17 +16,23 @@ tags:
   description: "Operations about authentication"
   externalDocs:
     description: "Authenticate and start woofing on"
-    url: "http://dird.chaz.pro"
-- name: "user"
+    url: "https://dird.chaz.pro"
+- name: "profile"
   description: "Operations about user"
   externalDocs:
     description: "See who's already woofin' on"
-    url: "http://dird.chaz.pro"
+    url: "https://dird.chaz.pro"
 - name: "woof"
   description: "Operations about woofs"
   externalDocs:
     description: "Check the most recents woofs on"
-    url: "http://dird.chaz.pro"
+    url: "https://dird.chaz.pro"
+- name: "chat"
+  description: "Chat with other woofers"
+  externalDocs:
+    description: "Chat with others woofers on"
+    url: "https://dird.chaz.pro"
+
 schemes:
 - "https"
 paths:
