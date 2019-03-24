@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update
-      - run: apt-get install -y curl
+      - run: apt-get install -y curl git
       - run: curl -sL https://deb.nodesource.com/setup_10.x | bash -
       - run: apt-get install nodejs -y
       - run: npm install -g mocha
