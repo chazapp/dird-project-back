@@ -93,4 +93,25 @@ router.get('/:handle/woofs', async (ctx) => {
   }
 });
 
+router.get('/woofs', jwt, async (ctx) => {
+  const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
+  const currentUser = await findUser({ accessTokens: accessToken });
+  if (currentUser != null) {
+    let i = 0;
+    const woofArray = [];
+    while (i < currentUser.woofs.length) {
+      woofArray.push(db.Woof.findOne({ _id: currentUser.woofs[i] }));
+      i += 1;
+    }
+    ctx.response.status = 200;
+    ctx.response.body = await Promise.all(woofArray);
+  } else {
+    ctx.response.status = 404;
+    ctx.response.body = {
+      status: 'failed',
+      message: 'Could not find user for given handle.',
+    };
+  }
+});
+
 module.exports = router;
