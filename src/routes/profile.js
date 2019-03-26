@@ -50,8 +50,19 @@ router.post('/profile/picture', jwt, uploader, async (ctx) => {
 router.get('/profile/picture', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
   const currentUser = await db.User.findOne({ accessTokens: accessToken });
-  ctx.response.status = 200;
-  ctx.response.body = currentUser.pictureB64;
+  if (currentUser) {
+    ctx.response.status = 200;
+    ctx.response.body = {
+      status: 'success',
+      pictureB64: currentUser.pictureB64,
+    };
+  } else {
+    ctx.response.status = 401;
+    ctx.response.body = {
+      status: 'failed',
+      message: 'Could not authenticate user.',
+    };
+  }
 });
 
 router.get('/:handle/picture', async (ctx) => {
@@ -61,7 +72,7 @@ router.get('/:handle/picture', async (ctx) => {
     ctx.response.status = 200;
     ctx.response.body = {
       status: 'success',
-      pictureURL: targetUser.pictureB64,
+      pictureB64: targetUser.pictureB64,
     };
   } else {
     ctx.response.status = 404;
