@@ -1,4 +1,7 @@
 const Router = require('koa-router');
+const validate = require('koa-joi-validate');
+const joi = require('joi');
+
 const busboy = require('koa-busboy');
 const fs = require('fs');
 
@@ -7,6 +10,13 @@ const jwt = require('../jwt');
 const db = require('../db');
 
 const router = new Router();
+
+const profileValidator = validate({
+  body: {
+    email: joi.string().required(),
+    handle: joi.string().required(),
+  },
+});
 
 const uploader = busboy({});
 
@@ -18,6 +28,29 @@ router.get('/profile', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
   const currentUser = await db.User.findOne({ accessTokens: accessToken });
   if (currentUser) {
+    ctx.response.status = 200;
+    ctx.response.body = {
+      status: 'success',
+      email: currentUser.email,
+      handle: currentUser.handle,
+    };
+  } else {
+    ctx.response.status = 404;
+    ctx.response.body = {
+      status: 'failed',
+    };
+  }
+});
+
+router.post('/profile', jwt, profileValidator, async (ctx) => {
+  const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
+  const currentUser = await db.User.findOne({ accessTokens: accessToken });
+
+  if (currentUser) {
+    const { handle, email } = ctx.request.body;
+    currentUser.handle = handle;
+    currentUser.email = email;
+    currentUser.save();
     ctx.response.status = 200;
     ctx.response.body = {
       status: 'success',
