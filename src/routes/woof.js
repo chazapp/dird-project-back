@@ -79,7 +79,8 @@ router.get('/:handle/woofs', async (ctx) => {
     let i = 0;
     const woofArray = [];
     while (i < user.woofs.length) {
-      woofArray.push(db.Woof.findOne({ _id: user.woofs[i] }));
+      const obj = db.Woof.findOne({ _id: user.woofs[i] }).then(item => item);
+      woofArray.push(obj);
       i += 1;
     }
     ctx.response.status = 200;
