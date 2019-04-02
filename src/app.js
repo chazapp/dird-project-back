@@ -12,6 +12,7 @@ const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const woofRouter = require('./routes/woof');
 const chatRouter = require('./routes/chat');
+const usersRouter = require('./routes/users');
 
 const app = new Koa();
 const router = new Router();
@@ -34,6 +35,7 @@ app.use(authRouter.routes());
 app.use(profileRouter.routes());
 app.use(woofRouter.routes());
 app.use(chatRouter.routes());
+app.use(usersRouter.routes());
 app.use(router.allowedMethods());
 app.use(jwt);
 

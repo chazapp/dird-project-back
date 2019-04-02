@@ -5,7 +5,6 @@ const joi = require('joi');
 const busboy = require('koa-busboy');
 const fs = require('fs');
 
-const app = require('../app');
 const jwt = require('../jwt');
 const db = require('../db');
 
@@ -19,10 +18,6 @@ const profileValidator = validate({
 });
 
 const uploader = busboy({});
-
-router.get('/users', async (ctx) => {
-  ctx.body = await app.findUser({});
-});
 
 router.get('/profile', jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');

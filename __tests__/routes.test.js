@@ -150,4 +150,16 @@ describe('dirdapi route tests', () => {
         done();
       });
   });
+
+  it('should find a user by partial handle', (done) => {
+    chai
+      .request(server)
+      .get('/users?handle=sh')
+      .set('Authorization', `Bearer ${currentToken}`)
+      .end((err, response) => {
+        expect(response.status).toEqual(200);
+        expect(response.body.length).toEqual(1);
+        done();
+      });
+  });
 });
