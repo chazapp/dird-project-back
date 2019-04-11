@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 const validate = require('koa-joi-validate');
 const joi = require('joi');
+const findHashtags = require('find-hashtags');
 
 const jwt = require('../jwt');
 const db = require('../db');
@@ -22,9 +23,11 @@ router.post('/woof', woofValidator, jwt, async (ctx) => {
   const accessToken = ctx.request.get('Authorization').replace('Bearer ', '');
   const currentUser = await findUser({ accessTokens: accessToken });
   if (currentUser != null) {
+    const hashtags = findHashtags(text);
     const woof = new db.Woof({
       handle: currentUser.handle,
       text,
+      hashtags,
     });
     woof.save();
     currentUser.woofs.push(woof.id);
@@ -113,6 +116,13 @@ router.get('/woofs', jwt, async (ctx) => {
       message: 'Could not find user for given handle.',
     };
   }
+});
+
+router.get('/findWoofs', async (ctx) => {
+  const { hashtag } = ctx.query;
+  const result = await db.Woof.find({ hashtags: hashtag });
+  ctx.response.status = 200;
+  ctx.response.body = result;
 });
 
 module.exports = router;
