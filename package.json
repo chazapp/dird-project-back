@@ -24,7 +24,7 @@
   "homepage": "https://github.com/shadonovitch/dird-project-back#readme",
   "dependencies": {
     "@koa/cors": "2",
-    "bcrypt": "^3.0.4",
+    "bcrypt": "^5.0.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "dotenv": "^6.2.0",
