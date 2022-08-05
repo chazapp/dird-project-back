@@ -43,7 +43,7 @@
     "koa-router": "^7.4.0",
     "koa2-formidable": "^1.0.2",
     "mocha": "^6.0.2",
-    "mongoose": "^5.4.17",
+    "mongoose": "^5.7.5",
     "sinon": "^7.3.0",
     "sinon-test": "^2.4.0",
     "supertest": "^3.4.2",
